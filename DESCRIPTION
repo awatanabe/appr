@@ -1,0 +1,21 @@
+Package: appr
+Title: APPR (Aaron's Personal Package for R)
+Version: 0.1.0.20160819150631
+Authors@R: person(given = 'Aaron', family = 'Watanabe', email = 'awatanabe@alumni.harvard.edu', role = c('aut', 'cre'))
+Description: A package of simple helper functions that I find useful.
+    General move towards standardizing the R syntax that I use and moving towards
+    immutability -- nothing makes code harder to understand that functions which
+    edit objects I wasn't expecting.
+Depends:
+    R (>= 3.3.0)
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+Imports:
+    foreign,
+    utils,
+    devtools,
+    roxygen2
+Suggests:
+    testthat
+RoxygenNote: 5.0.1
