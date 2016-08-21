@@ -1,3 +1,5 @@
+
+
 packageSrcDir <- "/Users/aaronwatanabe/Dropbox/Academic Documents/R Personal Package"
 
 #' Create package 'appr' from component files
@@ -83,6 +85,7 @@ buildAppr <- function(
 	if(dev == TRUE){
 		devtools::use_package("devtools", type = "Imports", pkg = package)
 		devtools::use_package("roxygen2", type = "Imports", pkg = package)
+		devtools::use_package("git2r"   , type = "Imports", pkg = package)
 	}
 	
 	# Move function source code into R directory
@@ -113,13 +116,28 @@ buildAppr <- function(
 	
 }
 
-#' Commit stage files in Git
-#' 
-#' Commits the currently staged files to Git repository. By default, updates documentation and checks package before committing, including running tests.
-#' 
-
-apprCommit(){
+#' Stages files for the next Git commit
+#'
+#' Adds specified files for the next commit
+#' @param pkgPath	Path to appr's base directory. Assumed that the git repository is located there. Default value set in global options via packages \code{onLoad()}
+#' @param ...		Path(s) to files to stage
+#' @export
+apprAdd <- function(..., pkgPath = getOption("appr.path")){
 	
+	print(...)
+	
+	# Vector of paths for files to stage
+	files <- unlist(list(...), recursive = TRUE)
+	
+	# Move to appr working directory (and return to original on exit)
+	originalDir <- getwd()
+	on.exit(setwd(originalDir))
+	setwd(pkgPath)
+	
+	# Generate repository object
+	repo <- git2r::repository(".")
+	
+	# Add files 
+	git2r::add(repo, files)
 	
 }
-
