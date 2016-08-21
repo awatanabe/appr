@@ -19,8 +19,9 @@ buildAppr <- function(
 	package = "/Users/aaronwatanabe/Documents/codeDev/appr",
 	dev = TRUE){
 		
-	# Save current working directory
-	currentDir <- getwd()
+	# Save current working directory and return there on exit
+	originalDir <- getwd()
+	on.exit(setwd(originalDir))
 		
 	# Append src directories if environment is given
 	if(is.character(srcEnviron) == TRUE){
@@ -94,11 +95,6 @@ buildAppr <- function(
 
 	# Check package
 	devtools::check(document = FALSE) # Documentation deactivated due to side effect noted above
-
-	# Return to original working directory
-	setwd(currentDir)
-	
-	
 	
 	# cat("Building package 'appr'\n", 
 		# "     Version: ", paste(majorVersion, minorVersion, workingVersion, sep = "."), "\n",
@@ -114,6 +110,16 @@ buildAppr <- function(
 	# cat(" DONE\n")
 	
 	# Setting 
+	
+}
+
+#' Commit stage files in Git
+#' 
+#' Commits the currently staged files to Git repository. By default, updates documentation and checks package before committing, including running tests.
+#' 
+
+apprCommit(){
+	
 	
 }
 
